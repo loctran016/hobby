@@ -52,7 +52,12 @@ onMounted(() => {
     class="grid grid-cols-6 gap-4 max-w-4/5 mt-16 px-4 py-4 mx-auto font-sans"
   >
     <div class="col-span-2 w-full p-4">
-      <QuickActionForm />
+          <h2
+    class="border-rounded-full px-3 py-2 w-max flex items-center gap-2 font-semibold font-sans text-lg"
+  >
+    Quick actions
+  </h2>
+      <StrengthForm />
     </div>
     <div
       class="col-span-4 w-full border-gray-100/10 border-1 p-4 border-rounded-lg"
