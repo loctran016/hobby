@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     "@formkit/auto-animate",
     "@vueuse/nuxt",
     "motion-v/nuxt",
+    "@vee-validate/nuxt",
+    "@nuxt/image",
+    "@nuxtjs/supabase",
   ],
   runtimeConfig: {
     public: {
@@ -17,4 +20,7 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
+    supabase: {
+      redirect: false, // TODO: setup login page
+  }
 });

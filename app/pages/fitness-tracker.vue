@@ -1,57 +1,41 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { createClient } from "@supabase/supabase-js";
+import { ref} from "vue";
 import dayjs from "dayjs";
 
-const config = useRuntimeConfig();
-const supabase = createClient(
-  config.public.supabaseUrl,
-  config.public.supabaseKey,
-);
+const client = useSupabaseClient()
+const {
+  data: strengthExercises,
+  pending: isLoading,
+  error: errorMessage,
+  refresh: fetchEntries,
+} = await useAsyncData('strength-entries', async () => {
+  const { data, error } = await client
+    .from('strength')
+    .select('*')
+    .order('created_at', { ascending: false })
 
-const strengthExcercises = ref([]);
-const todayStrengthExcercises = ref([]);
-const isLoading = ref(true);
-const errorMessage = ref(null);
+  if (error) throw error
+  return data ?? []
+})
 
-async function fetchEntries() {
-  try {
-    isLoading.value = true;
-    const { data, error } = await supabase.from("strength").select("*");
+// Filter today's entries reactively
+const todayStrengthExercises = computed(() => {
+  return (strengthExercises.value ?? []).filter((item) =>
+    dayjs(item.created_at).isSame(dayjs(), 'day')
+  )
+})
 
-    if (error) throw error;
-    strengthExcercises.value = data ?? [];
-    todayStrengthExcercises.value = strengthExcercises.value.filter((item) => {
-      return dayjs(item.created_at).isSame(dayjs(), "day");
-    });
-  } catch (error) {
-    errorMessage.value = error.message;
-    console.error("Error fetching data:", error);
-  } finally {
-    isLoading.value = false; // 2. Turn off loading screen when done
-  }
-}
-
+// Optional: equivalent to your old queryData()
 async function queryData() {
-  const { data } = await supabase.from("strength").select();
-  strengthExcercises.value = data;
+  await fetchEntries()
 }
-
-// async function getCardio() {
-//   const { data } = await supabase.from("cardio").select();
-//   cardioExcercises.value = data;
-// }
-
-onMounted(() => {
-  fetchEntries();
-});
 </script>
 
 <template>
   <div
     class="grid lg:grid-cols-6 gap-4 max-w-9/10 lg:max-w-4/5 mt-16 px-4 py-4 mx-auto font-sans"
   >
-    
+
     <div
       class="lg:col-span-4 w-full border-gray-100/10 border-1 p-4 border-rounded-lg"
     >
@@ -61,11 +45,11 @@ onMounted(() => {
         <div class="i-tabler:layout-grid" />
         Today workouts
       </h2>
-      <ul class="grid-cols-3 mt-4">
+      <ul class="grid grid-cols-3 items-stretch w-full gap-2 mt-4">
         <li
-          v-for="items in todayStrengthExcercises"
+          v-for="items in strengthExercises"
           :key="items.id"
-          class="bg-stone-700/30 hover:bg-stone-500/30 duration-200 w-1/3 border-rounded-md cursor-pointer p-4"
+          class="bg-stone-700/30 hover:bg-stone-500/30 duration-200 w-full border-rounded-md cursor-pointer p-4"
         >
           <h3 class="font-bold flex items-center gap-2 font-sans text-base">
             <div class="i-mdi:dumbbell" />
@@ -84,8 +68,8 @@ onMounted(() => {
           </ul> -->
         </li>
         <li
-          v-if="todayStrengthExcercises.length < 3"
-          class="border-stone-700/30 border-1 hover:border-gray-400/30 border-dashed flex items-center justify-center duration-200 w-1/3 border-rounded-md cursor-pointer p-4"
+          v-if="todayStrengthExercises.length < 3"
+          class="border-stone-700/30 border-1 hover:border-gray-400/30 border-dashed flex items-center justify-center duration-200 w-full border-rounded-md cursor-pointer p-4"
         >
           <div class="i-mdi:plus" />
         </li>
