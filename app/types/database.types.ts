@@ -390,7 +390,6 @@ export interface StrengthRecord {
   date: string; // timestamp
   exercise: StrengthExercise;
   created_at: string; // timestamp
-  equipment: string;
   sets: number[];
   muscles: MuscleGroup[];
 }

@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@vee-validate/nuxt",
     "@nuxt/image",
     "@nuxtjs/supabase",
+    "@nuxtjs/color-mode"
   ],
   runtimeConfig: {
     public: {
@@ -23,5 +24,10 @@ export default defineNuxtConfig({
   supabase: {
       useSsrCookies: true, // This should be true for SSR support
       redirect: false,
+    },
+    image: {
+    cloudinary: {
+      baseURL: 'https://res.cloudinary.com/loctran016/image/upload'
+    }
   }
 });

@@ -1,6 +1,9 @@
 <script setup>
-import { ref} from "vue";
 import dayjs from "dayjs";
+
+definePageMeta({
+  colorMode: 'dark',
+})
 
 const client = useSupabaseClient()
 const {
@@ -33,7 +36,7 @@ async function queryData() {
 
 <template>
   <div
-    class="grid lg:grid-cols-6 gap-4 max-w-9/10 lg:max-w-4/5 mt-16 px-4 py-4 mx-auto font-sans"
+    class="grid lg:grid-cols-6 gap-4 max-w-9/10 lg:max-w-4/5 mt-16 px-4 py-4 mx-auto font-sans dark:text-gray-100"
   >
 
     <div

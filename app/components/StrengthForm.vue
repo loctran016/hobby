@@ -21,13 +21,13 @@
         </DialogOverlay>
         <DialogContent
           as-child
-          class="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-stone-700 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none z-[100]"
+          class="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-stone-700 dark:text-gray-100 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none z-[100]"
         ><Motion
             :initial="{ opacity: 0, top: '40%' }"
             :animate="{ opacity: 1, top: '50%' }"
             :exit="{ opacity: 0, top: '30%' }"
           >
-          <DialogTitle class="font-semibold mb-5 leading-normal">
+          <DialogTitle class="font-semibold mb-5 leading-normal dark:text-gray-100">
             Strength Excercise
           </DialogTitle>
 
@@ -41,21 +41,21 @@
       <label class="mb-1 block text-sm font-medium">Sets</label>
       <div class="space-y-2">
         <div class="grid grid-cols-[1fr_auto_1fr_auto] items-center gap-2">
-          <input v-model.number="reps1" type="number" min="0" step="1" placeholder="reps" class="w-full rounded-lg border px-3 py-2">
+          <input v-model.number="reps1" type="number" min="0" step="1" placeholder="reps" class="w-full focus:outline-none border-b-gray-100/50 focus:border-purple-600  transition-all duration-200 border px-3 py-2 border-0 border-b-2">
           <span class="text-sm">reps x</span>
-          <input v-model.number="kg1" type="number" min="0" step="0.5" placeholder="kg" class="w-full rounded-lg border px-3 py-2">
+          <input v-model.number="kg1" type="number" min="0" step="0.5" placeholder="kg" class="w-full focus:outline-none focus:border-purple-600 border-b-gray-100/50 transition-all duration-200 border px-3 py-2 border-0 border-b-2">
           <span class="text-sm">kg</span>
         </div>
         <div class="grid grid-cols-[1fr_auto_1fr_auto] items-center gap-2">
-          <input v-model.number="reps2" type="number" min="0" step="1" placeholder="reps" class="w-full rounded-lg border px-3 py-2">
+          <input v-model.number="reps2" type="number" min="0" step="1" placeholder="reps" class="w-full focus:outline-none focus:border-purple-600  transition-all duration-200 border px-3 py-2 border-0 border-b-2 border-b-gray-100/50">
           <span class="text-sm">reps x</span>
-          <input v-model.number="kg2" type="number" min="0" step="0.5" placeholder="kg" class="w-full rounded-lg border px-3 py-2">
+          <input v-model.number="kg2" type="number" min="0" step="0.5" placeholder="kg" class="w-full focus:outline-none focus:border-purple-600  transition-all duration-200 border px-3 py-2 border-0 border-b-2 border-b-gray-100/50">
           <span class="text-sm">kg</span>
         </div>
         <div class="grid grid-cols-[1fr_auto_1fr_auto] items-center gap-2">
-          <input v-model.number="reps3" type="number" min="0" step="1" placeholder="reps" class="w-full rounded-lg border px-3 py-2">
+          <input v-model.number="reps3" type="number" min="0" step="1" placeholder="reps" class="w-full focus:outline-none focus:border-purple-600  transition-all duration-200 border px-3 py-2 border-0 border-b-2 border-b-gray-100/50">
           <span class="text-sm">reps x</span>
-          <input v-model.number="kg3" type="number" min="0" step="0.5" placeholder="kg" class="w-full rounded-lg border px-3 py-2">
+          <input v-model.number="kg3" type="number" min="0" step="0.5" placeholder="kg" class="w-full focus:outline-none focus:border-purple-600  transition-all duration-200 border px-3 py-2 border-0 border-b-2 border-b-gray-100/50">
           <span class="text-sm">kg</span>
         </div>
       </div>

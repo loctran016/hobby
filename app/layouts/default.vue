@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+definePageMeta({
+  colorMode: 'dark',
+})
+</script>
 
 <template>
-  <div class="w-full bg-stone-900 text-gray-100">
+  <div class="w-full dark:bg-stone-900 dark:text-gray-100">
     <NavBar />
       <slot />
 
