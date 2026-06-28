@@ -102,7 +102,8 @@ import {
 } from "reka-ui";
 import { AnimatePresence, Motion } from "motion-v";
 
-import type { StrengthExercise } from "~/types/database.types";
+import { STRENGTH_EXERCISES, type StrengthExercise } from '~/types/database.types'
+
 
 import { ref } from 'vue'
 
