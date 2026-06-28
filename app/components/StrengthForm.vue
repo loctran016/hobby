@@ -102,7 +102,7 @@ import {
 } from "reka-ui";
 import { AnimatePresence, Motion } from "motion-v";
 
-import { STRENGTH_EXERCISES, type StrengthExercise } from '~/types/database.types'
+import { EXERCISE_TO_MUSCLES, type StrengthExercise } from '~/types/database.types'
 
 
 import { ref } from 'vue'
@@ -187,6 +187,7 @@ async function onSubmit() {
     const { error } = await supabase.from('strength').insert({
       exercise: exercise.value,
       sets: parsedSets,
+			muscles: [...EXERCISE_TO_MUSCLES[`${exercise.value}`]]
     })
 
     if (error) throw error
