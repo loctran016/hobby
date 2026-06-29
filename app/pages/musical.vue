@@ -41,4 +41,8 @@ V:2
  A,,2 E,2 A,2 E,2 | G,,2 D,2 C,2 G,2 | F,,2 C,2 F,2 C,2 | E,2 B,2 A,,2 E,2 |
  D,2 A,2 D4 | G,,2 D,2 G,4 | C,2 G,2 C4 | (24:23:2C,8 z/ |]
 `;
+
+definePageMeta({
+  colorMode: 'light',
+})
 </script>

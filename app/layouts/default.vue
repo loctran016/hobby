@@ -1,11 +1,11 @@
 <script setup>
-definePageMeta({
-  colorMode: 'dark',
-})
+// definePageMeta({
+//   colorMode: 'light',
+// })
 </script>
 
 <template>
-  <div class="w-full dark:bg-stone-900 dark:text-gray-100">
+  <div class="w-full h-full bg-stone-50  text-stone-900 dark:bg-stone-900 dark:text-gray-100">
     <NavBar />
       <slot />
 
@@ -19,12 +19,18 @@ body,
   width: 100%;
   height: 100%;
   margin: 0;
-  background: #1c1917;
+  /* background: #1c1917; */
+}
+#__nuxt {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  /* background: #1c1917; */
 }
 
 .page-enter-active,
 .page-leave-active {
-  transition: all 0.4s;
+  transition: all 0.2s;
 }
 .page-enter-from,
 .page-leave-to {
