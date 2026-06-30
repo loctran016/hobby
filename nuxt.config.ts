@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     "@vee-validate/nuxt",
     "@nuxt/image",
     "@nuxtjs/supabase",
-    "@nuxtjs/color-mode"
+    "@nuxtjs/color-mode",
+    "nuxt-echarts",'@nuxt/eslint'
   ],
   runtimeConfig: {
     public: {

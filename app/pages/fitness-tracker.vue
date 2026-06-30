@@ -1,5 +1,18 @@
 <script setup>
-import dayjs from "dayjs";
+import { parseDateTime, DateFormatter, CalendarDate, getDayOfWeek } from '@internationalized/date';
+
+// Create the formatter once
+const df = new DateFormatter('en-GB', { weekday: 'short',day: '2-digit', month: '2-digit', year: 'numeric' });
+
+const dayToColor = [
+  'bg-amber-400/50',   // 0: Monday
+  'bg-emerald-400/50', // 1: Tuesday
+  'bg-sky-400/50',     // 2: Wednesday
+  'bg-indigo-400/50',  // 3: Thursday
+  'bg-purple-400/50',  // 4: Friday
+  'bg-rose-400/50',    // 5: Saturday
+  'bg-teal-400/50'     // 6: Sunday
+]
 
 const client = useSupabaseClient()
 const {
@@ -14,25 +27,32 @@ const {
     .order('created_at', { ascending: false })
 
   if (error) throw error
-  return data ?? []
+
+  // Map through the rows and format the date string for @internationalized/date
+  return (data ?? []).map(items => ({
+    ...items,
+    date: items.date ? items.date.replace(' ', 'T') : items.date
+  }))
 })
 
 // Filter today's entries reactively
 const todayStrengthExercises = computed(() => {
-  return (strengthExercises.value ?? []).filter((item) =>
-    dayjs(item.created_at).isSame(dayjs(), 'day')
-  )
-})
+  // 1. Get today's raw date components (e.g., Year 2026, Month 6, Day 30)
+  const now = new Date();
+  const currentDate = new CalendarDate(now.getFullYear(), now.getMonth() + 1, now.getDate());
 
-// Optional: equivalent to your old queryData()
-async function queryData() {
-  await fetchEntries()
-}
+  return (strengthExercises.value ?? []).filter((item) => {
+    if (!item.created_at) return false;
+
+    // 2. Parse the DB string and compare just the date components
+    const itemDate = parseDateTime(item.date);
+    return itemDate.compare(currentDate) === 0;
+  });
+});
 </script>
 
 <template>
     <div class="min-h-screen">
-<!-- TODO: remove this h-full -->
         <div
           class="grid lg:grid-cols-6 gap-4 max-w-9/10 lg:max-w-4/5 px-4 pt-20 py-4 mx-auto font-sans dark:text-gray-100"
         >
@@ -57,7 +77,7 @@ async function queryData() {
                   {{ items.exercise }}
                 </h3>
                 <div class="text-sm mt-1">
-                  {{ dayjs(`${items.date}`).format("DD/MM/YYYY") }}
+                  {{ df.format(parseDateTime(items.date).toDate('UTC')) }}
                 </div>
 
                 <!-- {{ items.muscles }} -->
@@ -105,8 +125,11 @@ async function queryData() {
                   <div class="i-mdi:dumbbell" />
                   {{ items.exercise }}
                 </h3>
-                <div class="text-sm mt-1">
-                  {{ dayjs(`${items.date}`).format("DD/MM/YYYY") }}
+
+                <div class="text-sm mt-2 flex gap-1">
+                    <div class="text-base rounded-sm my-auto w-3 aspect-square inline-block self-center" :class="dayToColor[(getDayOfWeek(parseDateTime(items.date), 'en-GB') + 6) % 7]">     </div>
+                <!-- <span class="text-base">{{dayFormat.format(parseDateTime(items.date).toDate('UTC'))}}, </span> -->
+                    {{ df.format(parseDateTime(items.date).toDate('UTC')) }}
                 </div>
 
                 <ul class="flex flex-wrap gap-1 text-xs mt-4">
