@@ -1,5 +1,5 @@
-import { defineConfig, presetWind4, presetIcons, presetWebFonts } from "unocss";
-
+import { defineConfig, presetWind4, presetIcons, presetWebFonts } from 'unocss'
+import { presetScrollbar } from 'unocss-preset-scrollbar'
 
 export default defineConfig({
   presets: [
@@ -10,13 +10,14 @@ export default defineConfig({
     }),
     presetIcons(),
     presetWebFonts({
-      provider: "google", // default provider
+      provider: 'google', // default provider
       fonts: {
         // these will extend the default theme
-        sans: "Inter",
+        sans: 'Inter',
         // mono: ["Fira Code", "Fira Mono:400,700"],
         // custom ones
       },
     }),
-    ]
-});
+    presetScrollbar(),
+  ],
+})

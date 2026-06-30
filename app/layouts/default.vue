@@ -5,10 +5,11 @@
 </script>
 
 <template>
-  <div class="w-full bg-stone-50  text-stone-900 dark:bg-stone-900 dark:text-gray-100">
+  <div
+    class="w-full bg-stone-50 text-stone-900 dark:bg-stone-900 dark:text-gray-100 scrollbar-track-op-0 scrollbar-thin"
+  >
     <NavBar />
-      <slot />
-
+    <slot />
   </div>
 </template>
 

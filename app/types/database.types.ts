@@ -11,7 +11,7 @@ export type MuscleGroup =
   | 'Lower back'
   | 'Forearm'
   | 'Triceps'
-  | 'Biceps';
+  | 'Biceps'
 
 export type StrengthExercise =
   // Chest
@@ -56,6 +56,8 @@ export type StrengthExercise =
   | 'Lat Pulldown'
   | 'Straight-Arm Pulldown'
   | 'Single-Arm Lat Pulldown'
+  | 'Chest-supported Row'
+  | 'DB Row'
 
   // Traps
   | 'DB Shrug'
@@ -90,10 +92,10 @@ export type StrengthExercise =
   | 'Barbell Curl'
   | 'EZ-Bar Curl'
   | 'Incline DB Curl'
+  | 'DB Curl'
   | 'Preacher Curl'
   | 'Cable Curl'
-  | 'Concentration Curl';
-
+  | 'Concentration Curl'
 
 export const STRENGTH_EXERCISES = [
   'DB Bench Press',
@@ -119,6 +121,8 @@ export const STRENGTH_EXERCISES = [
   'Machine Lateral Raise',
   'Leaning Cable Lateral Raise',
   'Upright Row',
+  'Chest-supported Row',
+  'DB Row',
   'Rear Delt Fly',
   'Reverse Pec Deck',
   'Face Pull',
@@ -153,11 +157,11 @@ export const STRENGTH_EXERCISES = [
   'Barbell Curl',
   'EZ-Bar Curl',
   'Incline DB Curl',
+  'DB Curl',
   'Preacher Curl',
   'Cable Curl',
   'Concentration Curl',
 ] as const satisfies readonly StrengthExercise[]
-
 
 export const EXERCISE_TO_MUSCLES = {
   // Chest-focused
@@ -202,6 +206,8 @@ export const EXERCISE_TO_MUSCLES = {
   'Lat Pulldown': ['Lats', 'Biceps', 'Forearm'],
   'Straight-Arm Pulldown': ['Lats'],
   'Single-Arm Lat Pulldown': ['Lats', 'Biceps'],
+  'Chest-supported Row': ['Lats', 'Traps'],
+  'DB Row': ['Lats', 'Triceps'],
 
   // Traps
   'DB Shrug': ['Traps', 'Forearm'],
@@ -236,18 +242,15 @@ export const EXERCISE_TO_MUSCLES = {
   'Barbell Curl': ['Biceps', 'Forearm'],
   'EZ-Bar Curl': ['Biceps', 'Forearm'],
   'Incline DB Curl': ['Biceps'],
+  'DB Curl': ['Biceps'],
   'Preacher Curl': ['Biceps'],
   'Cable Curl': ['Biceps'],
   'Concentration Curl': ['Biceps'],
-} as const satisfies Record<StrengthExercise, readonly MuscleGroup[]>;
+} as const satisfies Record<StrengthExercise, readonly MuscleGroup[]>
 
 // Optional helper map: muscle -> exercises
 export const MUSCLE_TO_EXERCISES: Record<MuscleGroup, StrengthExercise[]> = {
-  'Upper chest': [
-    'Incline DB Bench Press',
-    'Incline Barbell Bench Press',
-    'Incline Cable Fly',
-  ],
+  'Upper chest': ['Incline DB Bench Press', 'Incline Barbell Bench Press', 'Incline Cable Fly'],
   'Middle chest': [
     'DB Bench Press',
     'Flat Barbell Bench Press',
@@ -300,7 +303,7 @@ export const MUSCLE_TO_EXERCISES: Record<MuscleGroup, StrengthExercise[]> = {
     'Cable Rear Delt Fly',
     'Chest-Supported Rear Delt Raise',
   ],
-  'Abs': [
+  Abs: [
     'Push-Up',
     'Weighted Push-Up',
     'Farmer Carry',
@@ -308,14 +311,16 @@ export const MUSCLE_TO_EXERCISES: Record<MuscleGroup, StrengthExercise[]> = {
     'Good Morning',
     'Farmer Hold',
   ],
-  'Lats': [
+  Lats: [
     'Pull-Up',
     'Chin-Up',
     'Lat Pulldown',
     'Straight-Arm Pulldown',
     'Single-Arm Lat Pulldown',
+    'Chest-supported Row',
+    'DB Row',
   ],
-  'Traps': [
+  Traps: [
     'Upright Row',
     'Face Pull',
     'DB Shrug',
@@ -333,7 +338,7 @@ export const MUSCLE_TO_EXERCISES: Record<MuscleGroup, StrengthExercise[]> = {
     'Good Morning',
     'Superman Hold',
   ],
-  'Forearm': [
+  Forearm: [
     'Pull-Up',
     'Chin-Up',
     'Lat Pulldown',
@@ -348,7 +353,7 @@ export const MUSCLE_TO_EXERCISES: Record<MuscleGroup, StrengthExercise[]> = {
     'Farmer Hold',
     'Plate Pinch Hold',
   ],
-  'Triceps': [
+  Triceps: [
     'DB Bench Press',
     'Incline DB Bench Press',
     'Decline DB Bench Press',
@@ -370,7 +375,7 @@ export const MUSCLE_TO_EXERCISES: Record<MuscleGroup, StrengthExercise[]> = {
     'Cable Overhead Triceps Extension',
     'Bench Dip',
   ],
-  'Biceps': [
+  Biceps: [
     'Pull-Up',
     'Chin-Up',
     'Lat Pulldown',
@@ -379,29 +384,30 @@ export const MUSCLE_TO_EXERCISES: Record<MuscleGroup, StrengthExercise[]> = {
     'Barbell Curl',
     'EZ-Bar Curl',
     'Incline DB Curl',
+    'DB Curl',
     'Preacher Curl',
     'Cable Curl',
     'Concentration Curl',
   ],
-};
+}
 
 export interface StrengthRecord {
-  id: number;
-  date: string; // timestamp
-  exercise: StrengthExercise;
-  created_at: string; // timestamp
-  sets: number[];
-  muscles: MuscleGroup[];
+  id: number
+  date: string // timestamp
+  exercise: StrengthExercise
+  created_at: string // timestamp
+  sets: number[]
+  muscles: MuscleGroup[]
 }
 
 export interface Database {
   public: {
     Tables: {
       strength: {
-        Row: StrengthRecord;
-        Insert: Omit<StrengthRecord, 'id' | 'created_at'>;
-        Update: Partial<Omit<StrengthRecord, 'id' | 'created_at'>>;
-      };
-    };
-  };
+        Row: StrengthRecord
+        Insert: Omit<StrengthRecord, 'id' | 'created_at'>
+        Update: Partial<Omit<StrengthRecord, 'id' | 'created_at'>>
+      }
+    }
+  }
 }
