@@ -107,13 +107,18 @@ function playClick(time: number, accent = false) {
 
 function scheduleBeat(time: number) {
   const isAccent = accentFirstBeat.value && beatIndex === 0
-  playClick(time, isAccent)
 
-  // sync UI beat indicator to audio time
-  const delayMs = Math.max(0, (time - (audioCtx?.currentTime ?? 0)) * 1000)
-  setTimeout(() => {
-    if (isPlaying.value) currentBeat.value = beatIndex
-  }, delayMs)
+  // UI should show 1..beatsPerBar
+  const uiBeat = beatIndex + 1
+
+  setTimeout(
+    () => {
+      if (isPlaying.value) currentBeat.value = uiBeat
+    },
+    Math.max(0, (time - (audioCtx?.currentTime ?? 0)) * 1000),
+  )
+
+  playClick(time, isAccent)
 
   beatIndex = (beatIndex + 1) % beatsPerBar.value
   nextNoteTime += secondsPerBeat()
@@ -136,7 +141,7 @@ async function start() {
 
   isPlaying.value = true
   beatIndex = 0
-  currentBeat.value = 0
+  currentBeat.value = 1
   nextNoteTime = audioCtx.currentTime + 0.03 // tiny latency safety
 
   scheduler()
