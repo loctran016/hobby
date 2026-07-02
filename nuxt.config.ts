@@ -34,8 +34,10 @@ export default defineNuxtConfig({
     },
   },
   colorMode: {
-    preference: 'system', // or 'light' to test deterministic mode
+    preference: 'light',
     fallback: 'light',
     classSuffix: '',
+    storage: 'cookie', // ✅
+    // storage: 'localStorage',
   },
 })

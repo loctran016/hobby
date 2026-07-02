@@ -47,7 +47,6 @@ const todayStrengthExercises = computed(() => {
   const now = new Date()
   const currentDate = new CalendarDate(now.getFullYear(), now.getMonth() + 1, now.getDate())
 
-  console.log(currentDate)
   return (strengthExercises.value ?? []).filter((item) => {
     if (!item.date) return false
 

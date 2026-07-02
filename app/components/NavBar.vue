@@ -29,19 +29,12 @@
         ><IconNavBarWrapper><div class="i-solar:gallery-round-bold" /></IconNavBarWrapper
       ></NuxtLink>
     </li>
-    <ClientOnlyReady>
+    <ClientOnly>
       <li>
         <ColorScheme placeholder="..." tag="span">
           <button
-            class="cursor-pointer duration-200 border-rounded-full text-lg lg:text-xl p-3 flex items-center justify-center"
-            v-if="$colorMode.value === 'system'"
-            @click="$colorMode.preference = 'dark'"
-          >
-            <div class="i-tabler:device-laptop" />
-          </button>
-          <button
             class="cursor-pointer hover:bg-stone-100/10 hover:text-white duration-200 transition-all border-rounded-full text-lg lg:text-xl p-3 flex items-center justify-center"
-            v-else-if="$colorMode.value === 'dark'"
+            v-if="$colorMode.value === 'dark'"
             @click="$colorMode.preference = 'light'"
           >
             <div class="i-mdi:weather-night" />
@@ -49,7 +42,7 @@
           <button
             class="cursor-pointer duration-200 hover:bg-orange-100/50 hover:text-orange-400 border-rounded-full text-lg lg:text-xl p-3 flex items-center justify-center"
             v-else
-            @click="$colorMode.preference = 'system'"
+            @click="$colorMode.preference = 'dark'"
           >
             <div class="i-mdi:white-balance-sunny" />
           </button>
@@ -65,6 +58,14 @@
           </button>
         </li>
       </template>
-    </ClientOnlyReady>
+    </ClientOnly>
   </ul>
 </template>
+
+<!-- <button
+            class="cursor-pointer duration-200 border-rounded-full text-lg lg:text-xl p-3 flex items-center justify-center"
+            v-if="$colorMode.value === 'system'"
+            @click="$colorMode.preference = 'dark'"
+          >
+            <div class="i-tabler:device-laptop" />
+          </button> -->
