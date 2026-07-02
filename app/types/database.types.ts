@@ -97,6 +97,162 @@ export type StrengthExercise =
   | 'Cable Curl'
   | 'Concentration Curl'
 
+export type Split = 'Push' | 'Pull'
+
+export const EXERCISE_TO_SPLIT: Record<StrengthExercise, Split> = {
+  // Chest (Push)
+  'DB Bench Press': 'Push',
+  'Incline DB Bench Press': 'Push',
+  'Decline DB Bench Press': 'Push',
+  'Flat Barbell Bench Press': 'Push',
+  'Incline Barbell Bench Press': 'Push',
+  'Decline Barbell Bench Press': 'Push',
+  'Push-Up': 'Push',
+  'Weighted Push-Up': 'Push',
+  'Chest Dip': 'Push',
+  'Machine Chest Press': 'Push',
+  'Cable Fly': 'Push',
+  'Incline Cable Fly': 'Push',
+  'Pec Deck Fly': 'Push',
+
+  // Front Delts (Push)
+  'Barbell Overhead Press': 'Push',
+  'DB Shoulder Press': 'Push',
+  'Arnold Press': 'Push',
+  'Machine Shoulder Press': 'Push',
+  'Front Raise': 'Push',
+
+  // Side Delts (Typically Push, though involved in some pulling mechanics)
+  'DB Lateral Raise': 'Push',
+  'Cable Lateral Raise': 'Push',
+  'Machine Lateral Raise': 'Push',
+  'Leaning Cable Lateral Raise': 'Push',
+  'Upright Row': 'Push',
+
+  // Rear Delts (Pull)
+  'Rear Delt Fly': 'Pull',
+  'Reverse Pec Deck': 'Pull',
+  'Face Pull': 'Pull',
+  'Cable Rear Delt Fly': 'Pull',
+  'Chest-Supported Rear Delt Raise': 'Pull',
+
+  // Lats (Pull)
+  'Pull-Up': 'Pull',
+  'Chin-Up': 'Pull',
+  'Lat Pulldown': 'Pull',
+  'Straight-Arm Pulldown': 'Pull',
+  'Single-Arm Lat Pulldown': 'Pull',
+  'Chest-supported Row': 'Pull',
+  'DB Row': 'Pull',
+
+  // Traps (Pull)
+  'DB Shrug': 'Pull',
+  'Barbell Shrug': 'Pull',
+  'Trap Bar Shrug': 'Pull',
+  'Farmer Carry': 'Pull',
+  'High Pull': 'Pull',
+
+  // Lower Back (Pull)
+  'Conventional Deadlift': 'Pull',
+  'Romanian Deadlift': 'Pull',
+  'Back Extension': 'Pull',
+  'Good Morning': 'Pull',
+  'Superman Hold': 'Pull',
+
+  // Forearm (Pull)
+  'Wrist Curl': 'Pull',
+  'Reverse Wrist Curl': 'Pull',
+  'Hammer Curl': 'Pull',
+  'Farmer Hold': 'Pull',
+  'Plate Pinch Hold': 'Pull',
+
+  // Triceps (Push)
+  'Close-Grip Bench Press': 'Push',
+  'Skull Crusher': 'Push',
+  'Triceps Pushdown': 'Push',
+  'Overhead Triceps Extension': 'Push',
+  'Cable Overhead Triceps Extension': 'Push',
+  'Bench Dip': 'Push',
+
+  // Biceps (Pull)
+  'Barbell Curl': 'Pull',
+  'EZ-Bar Curl': 'Pull',
+  'Incline DB Curl': 'Pull',
+  'DB Curl': 'Pull',
+  'Preacher Curl': 'Pull',
+  'Cable Curl': 'Pull',
+  'Concentration Curl': 'Pull',
+}
+
+export const SPLIT_TO_EXERCISE: Record<Split, StrengthExercise[]> = {
+  Push: [
+    'DB Bench Press',
+    'Incline DB Bench Press',
+    'Decline DB Bench Press',
+    'Flat Barbell Bench Press',
+    'Incline Barbell Bench Press',
+    'Decline Barbell Bench Press',
+    'Push-Up',
+    'Weighted Push-Up',
+    'Chest Dip',
+    'Machine Chest Press',
+    'Cable Fly',
+    'Incline Cable Fly',
+    'Pec Deck Fly',
+    'Barbell Overhead Press',
+    'DB Shoulder Press',
+    'Arnold Press',
+    'Machine Shoulder Press',
+    'Front Raise',
+    'DB Lateral Raise',
+    'Cable Lateral Raise',
+    'Machine Lateral Raise',
+    'Leaning Cable Lateral Raise',
+    'Upright Row',
+    'Close-Grip Bench Press',
+    'Skull Crusher',
+    'Triceps Pushdown',
+    'Overhead Triceps Extension',
+    'Cable Overhead Triceps Extension',
+    'Bench Dip',
+  ],
+  Pull: [
+    'Rear Delt Fly',
+    'Reverse Pec Deck',
+    'Face Pull',
+    'Cable Rear Delt Fly',
+    'Chest-Supported Rear Delt Raise',
+    'Pull-Up',
+    'Chin-Up',
+    'Lat Pulldown',
+    'Straight-Arm Pulldown',
+    'Single-Arm Lat Pulldown',
+    'Chest-supported Row',
+    'DB Row',
+    'DB Shrug',
+    'Barbell Shrug',
+    'Trap Bar Shrug',
+    'Farmer Carry',
+    'High Pull',
+    'Conventional Deadlift',
+    'Romanian Deadlift',
+    'Back Extension',
+    'Good Morning',
+    'Superman Hold',
+    'Wrist Curl',
+    'Reverse Wrist Curl',
+    'Hammer Curl',
+    'Farmer Hold',
+    'Plate Pinch Hold',
+    'Barbell Curl',
+    'EZ-Bar Curl',
+    'Incline DB Curl',
+    'DB Curl',
+    'Preacher Curl',
+    'Cable Curl',
+    'Concentration Curl',
+  ],
+}
 export const STRENGTH_EXERCISES = [
   'DB Bench Press',
   'Incline DB Bench Press',

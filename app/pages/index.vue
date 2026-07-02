@@ -17,7 +17,7 @@ import {
   CalendarRoot,
 } from 'reka-ui'
 
-const date = today('UTC')
+const date = today('Asia/Ho_Chi_Minh')
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day === 317

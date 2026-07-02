@@ -1,22 +1,5 @@
 <script setup>
-import { parseDateTime, DateFormatter, today, getDayOfWeek } from '@internationalized/date'
-// Create the formatter once
-const df = new DateFormatter('en-GB', {
-  weekday: 'short',
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric',
-})
-
-const dayToColor = [
-  'bg-amber-400/50', // 0: Monday
-  'bg-emerald-400/50', // 1: Tuesday
-  'bg-sky-400/50', // 2: Wednesday
-  'bg-indigo-400/50', // 3: Thursday
-  'bg-purple-400/50', // 4: Friday
-  'bg-rose-400/50', // 5: Saturday
-  'bg-teal-400/50', // 6: Sunday
-]
+import { parseDateTime, today } from '@internationalized/date'
 
 useHead({
   title: 'Body.exe',
@@ -41,15 +24,11 @@ const {
 
   // Map through the rows and format the date string for @internationalized/date
   return data ?? []
-  //   return (data ?? []).map((items) => ({
-  //     ...items,
-  //     date: items.date ? items.date.replace(' ', 'T') : items.date,
-  //   }))
 })
 
 // Filter today's entries reactively
 const todayStrengthExercises = computed(() => {
-  const currentDate = today('UTC')
+  const currentDate = today('Asia/Ho_Chi_Minh')
 
   return (strengthExercises.value ?? []).filter((item) => {
     if (!item?.date) return false
@@ -74,31 +53,12 @@ const todayStrengthExercises = computed(() => {
           Today workouts
         </h2>
         <ul class="grid grid-cols-2 lg:grid-cols-3 items-stretch w-full gap-2 my-4">
-          <li
+          <ExerciseCard
             v-for="items in todayStrengthExercises"
             :key="items.id"
-            class="bg-stone-300/30 hover:bg-stone-500/30 dark:bg-stone-700/30 dark:hover:bg-stone-500/30 duration-200 w-full border-rounded-md cursor-pointer p-4"
-          >
-            <h3 class="font-bold flex items-center gap-2 font-sans text-base">
-              <div class="i-mdi:dumbbell" />
-              {{ items.exercise }}
-            </h3>
-            <div class="text-sm mt-1">
-              {{ df.format(parseDateTime(items.date).toDate('UTC')) }}
-            </div>
-
-            <!-- {{ items.muscles }} -->
-
-            <ul class="flex flex-wrap gap-1 text-xs mt-4">
-              <li
-                v-for="muscle in items.muscles"
-                :key="`${items.id}-${muscle}`"
-                class="w-max rounded-lg px-2 py-1 bg-purple-400/10 hover:bg-purple-400/50 transition-all duration-200"
-              >
-                {{ muscle }}
-              </li>
-            </ul>
-          </li>
+            :exercise="items"
+            variant="today"
+          />
           <StrengthForm>
             <li
               v-if="todayStrengthExercises.length < 3"
@@ -141,35 +101,12 @@ const todayStrengthExercises = computed(() => {
           Strength Workouts
         </h2>
         <ul class="grid grid-cols-3 lg:grid-cols-4 items-stretch w-full gap-2 my-4">
-          <li
+          <ExerciseCard
             v-for="items in strengthExercises"
             :key="items.id"
-            class="bg-stone-300/30 hover:bg-stone-500/30 dark:bg-stone-700/30 dark:hover:bg-stone-500/30 duration-200 w-full border-rounded-md cursor-pointer p-4"
-          >
-            <h3 class="font-bold flex items-center gap-2 font-sans text-base">
-              <div class="i-mdi:dumbbell" />
-              {{ items.exercise }}
-            </h3>
-
-            <div class="text-sm mt-2 flex gap-1">
-              <div
-                class="text-base rounded-sm my-auto w-3 aspect-square inline-block self-center"
-                :class="dayToColor[(getDayOfWeek(parseDateTime(items.date), 'en-GB') + 6) % 7]"
-              ></div>
-              <!-- <span class="text-base">{{dayFormat.format(parseDateTime(items.date).toDate('UTC'))}}, </span> -->
-              {{ df.format(parseDateTime(items.date).toDate('UTC')) }}
-            </div>
-
-            <ul class="flex flex-wrap gap-1 text-xs mt-4">
-              <li
-                v-for="muscle in items.muscles"
-                :key="`${items.id}-${muscle}`"
-                class="w-max rounded-lg px-2 py-1 bg-purple-600/20 hover:bg-purple-400/50 dark:bg-purple-400/10 dark:hover:bg-purple-400/50 transition-all duration-200"
-              >
-                {{ muscle }}
-              </li>
-            </ul>
-          </li>
+            :exercise="items"
+            variant="all"
+          />
           <StrengthForm>
             <li
               v-if="strengthExercises.length < 4"
